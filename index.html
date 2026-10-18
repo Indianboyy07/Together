@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Together · couples habit space (demo)</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf5f3;--card:#fff;--ink:#2e2530;--mut:#7d7081;--line:#efe3e6;--a:#e0709a;--a2:#fde4ec;--b:#7f6bd0;--b2:#ebe5fb;--ok:#3f9b7a;--warn:#c9733a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c171f;--card:#272029;--ink:#f3eaf1;--mut:#b2a4b5;--line:#3a303d;--a:#f08db0;--a2:#4a2a39;--b:#a493ec;--b2:#33294f}}
+:root[data-theme="dark"]{--bg:#1c171f;--card:#272029;--ink:#f3eaf1;--mut:#b2a4b5;--line:#3a303d;--a:#f08db0;--a2:#4a2a39;--b:#a493ec;--b2:#33294f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 Nunito,system-ui,sans-serif}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;margin:0;font-weight:700}
+button,input,select,textarea{font:inherit;color:inherit}
+.app{display:grid;grid-template-columns:200px 1fr;min-height:100vh}
+nav{padding:22px 14px;border-right:1px solid var(--line);position:sticky;top:0;height:100vh}
+.logo{font:700 22px Fraunces,serif;padding:0 10px 18px}.logo i{color:var(--a);font-style:normal}
+.nv{display:block;width:100%;text-align:left;border:0;background:none;padding:10px 12px;border-radius:12px;color:var(--mut);cursor:pointer;font-weight:600;margin-bottom:2px}
+.nv.on{background:var(--a2);color:var(--ink)}.nv .dot{background:var(--a);color:#fff;border-radius:9px;font-size:11px;padding:1px 7px;margin-left:6px}
+main{padding:24px clamp(14px,3vw,36px) 90px;max-width:1100px;width:100%}
+.demo{background:var(--b2);border-radius:12px;padding:8px 14px;font-size:13px;margin-bottom:18px}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.hd h1{font-size:clamp(24px,4vw,34px)}.mut{color:var(--mut)}.sm{font-size:13px}
+.btn{border:0;background:var(--a);color:#fff;padding:9px 16px;border-radius:999px;font-weight:700;cursor:pointer}
+.btn.g{background:var(--card);color:var(--ink);border:1px solid var(--line)}.btn:focus-visible,.nv:focus-visible,.chk:focus-visible{outline:2px solid var(--b);outline-offset:2px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 6px 20px rgba(120,60,90,.06)}
+.p0{border-top:5px solid var(--a)}.p1{border-top:5px solid var(--b)}
+.who{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:700 17px Fraunces,serif;color:#fff;background:var(--a)}.av.v1{background:var(--b)}
+.bar{height:10px;background:var(--line);border-radius:9px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--a);border-radius:9px;transition:width .4s}.v1b>i{background:var(--b)}
+.stats{display:flex;gap:18px;margin:12px 0;flex-wrap:wrap}.stats b{font:700 22px Fraunces,serif;display:block}
+.tk{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.chk{width:26px;height:26px;border-radius:50%;border:2px solid var(--a);background:none;cursor:pointer;flex:none;color:#fff;font-size:14px}.chk.on{background:var(--ok);border-color:var(--ok)}.chk:disabled{opacity:.4;cursor:not-allowed}
+.tk .t{flex:1;min-width:0}.tk .t.d{text-decoration:line-through;color:var(--mut)}
+.tag{font-size:12px;padding:1px 8px;border-radius:9px;background:var(--b2)}.tag.od{background:#fde3d3;color:#a0501f}
+.sec{margin:22px 0 10px;font-size:19px}
+.cel{background:linear-gradient(90deg,var(--a2),var(--b2));text-align:center;padding:16px;border-radius:18px;margin-top:16px;font:700 18px Fraunces,serif}
+.modal{position:fixed;inset:0;background:rgba(30,10,30,.45);display:grid;place-items:center;padding:16px;z-index:50}
+.modal .card{width:min(420px,100%)}label{display:block;margin:10px 0 4px;font-weight:600;font-size:13px}
+input,select,textarea{width:100%;padding:9px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg)}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.rm{position:fixed;right:16px;top:16px;width:min(340px,calc(100vw - 32px));z-index:40}
+.rem{background:var(--card);border:1px solid var(--a);border-radius:16px;padding:12px;margin-bottom:8px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.heart{position:fixed;pointer-events:none;font-size:22px;color:var(--a);animation:up 1.1s ease-out forwards;z-index:60}
+@keyframes up{to{transform:translateY(-90px) scale(1.4);opacity:0}}
+.nomo .heart{display:none}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.cd{min-height:60px;border:1px solid var(--line);border-radius:10px;padding:4px 6px;background:var(--card);cursor:pointer;text-align:left;font-size:11px}.cd.sel{border-color:var(--a);background:var(--a2)}.cd.td b{color:var(--a)}.ok{color:var(--ok)}.ms{color:var(--warn)}.app.out{grid-template-columns:1fr}.app.out nav{display:none}.login{max-width:400px;margin:6vh auto}.err{color:#b3261e;font-size:13px;margin-top:6px}
+@media (max-width:760px){.app{grid-template-columns:1fr}.grid{grid-template-columns:1fr}
+nav{position:fixed;bottom:0;left:0;right:0;top:auto;height:auto;border:0;border-top:1px solid var(--line);background:var(--card);z-index:30;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));display:flex}
+.logo{display:none}nav{overflow-x:auto;gap:2px}.nv{text-align:center;padding:8px 8px;font-size:12px;white-space:nowrap;flex:none}}
+</style></head><body>
+<div class="app"><nav id="nav"></nav><main id="main"></main></div>
+<div class="rm" id="rm"></div><div id="modal"></div>
+<script src="config.js"></script><script src="vendor/supabase.js"></script>
+<script>
+let dbErr='',ids=[],UID=null,pc=0,nt;const SB=(window.SB_CFG&&window.supabase)?window.supabase.createClient(SB_CFG.url,SB_CFG.key):null;const K='together-demo-v1',$=s=>document.querySelector(s);
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const add=(s,n)=>{const d=new Date(s+'T12:00');d.setDate(d.getDate()+n);return ymd(d)};
+const today=()=>ymd(new Date());
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let S,view='home',filter='',sess=null,calM=today().slice(0,7),calSel=today(),calF='both';try{sess=sessionStorage.getItem('together-sess')}catch(e){}
+function seed(){
+ const t=today(),tasks=[],done={},ledger=[];let id=1;
+ const hab=[['Brush teeth in the morning','07:30'],['Brush teeth at night','22:00'],['Take a bath','20:00'],['Solve one LeetCode problem','']];
+ [0,1].forEach(u=>hab.forEach(h=>tasks.push({id:id++,title:h[0],creator:u,assignee:u,time:h[1],rec:'daily',start:add(t,-6),date:''})));
+ tasks.push({id:id++,title:'Plan weekend picnic',creator:0,assignee:1,time:'',rec:'once',start:t,date:add(t,2)});
+ for(let n=1;n<=6;n++){const d=add(t,-n);tasks.forEach(k=>{if(k.rec!=='daily')return;if(k.assignee===1&&n===3)return;done[k.id+'|'+d]={by:k.assignee};ledger.push({key:k.id+'|'+d,user:k.assignee,pts:10,day:d,title:k.title})})}
+ return{names:['Person 1','Person 2'],me:0,tasks,done,ledger,nid:id,rem:{},sound:false,motion:true,theme:'auto',pts:10,notes:[{id:1,title:'Ramen',text:'Sunday: try the new ramen place',by:0,created:new Date().toISOString(),updated:new Date().toISOString(),pin:true}],nn:2,love:[],nl:1,tz:Intl.DateTimeFormat().resolvedOptions().timeZone,nsort:'created'}}
+function load(){try{S=JSON.parse(localStorage.getItem(K))}catch(e){}if(!S)S=seed();const iso=new Date().toISOString();S.love=S.love||[];S.nl=S.nl||1;S.nsort=S.nsort||'created';S.tz=S.tz||Intl.DateTimeFormat().resolvedOptions().timeZone;S.notes.forEach(n=>{n.title=n.title||'';n.by=n.by??0;n.created=n.created||iso;n.updated=n.updated||n.created})}
+const fmt=i=>new Date(i).toLocaleString(undefined,{timeZone:S.tz,dateStyle:'medium',timeStyle:'short'});
+function save(){if(SB){try{localStorage.setItem(K+'-p',JSON.stringify({rem:S.rem,sound:S.sound,motion:S.motion,theme:S.theme,tz:S.tz,nsort:S.nsort}))}catch(e){}return}try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
+window.addEventListener('storage',e=>{if(SB||e.key!==K||!sess)return;load();const a=document.activeElement;if(!(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName)))render()});
+const nm=i=>`<span data-n="${i}">${esc(S.names[i])}</span>`;
+const el=(t,d)=>t.start<=d&&(t.rec==='daily'||t.date===d);
+const list=(u,d)=>S.tasks.filter(t=>!t.arch&&t.assignee===u&&el(t,d));
+const isDone=(t,d)=>!!S.done[t.id+'|'+d];
+const dayOk=(u,d)=>{const l=list(u,d);return l.length>0&&l.every(t=>isDone(t,d))};
+function streak(u){const t=today();let d=dayOk(u,t)?t:add(t,-1),c=0;while(dayOk(u,d)&&c<400){c++;d=add(d,-1)}return c}
+function best(u){let b=0,c=0;for(let n=60;n>=0;n--){if(dayOk(u,add(today(),-n))){c++;b=Math.max(b,c)}else if(n>0)c=0}return b}
+const pts=u=>S.ledger.filter(l=>l.user===u).reduce((a,l)=>a+l.pts,0);
+const ptsToday=u=>S.ledger.filter(l=>l.user===u&&l.day===today()).reduce((a,l)=>a+l.pts,0);
+function prog(u){const l=list(u,today()),d=l.filter(t=>isDone(t,today())).length;return{d,n:l.length,p:l.length?Math.round(d*100/l.length):0}}
+const nowHM=()=>{const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};
+const overdue=t=>t.time&&t.time<nowHM()&&!isDone(t,today());
+function toggle(id,ev){
+ const t=S.tasks.find(x=>x.id==id);if(!t||t.assignee!==S.me)return;const d=today(),k=t.id+'|'+d,before=prog(0).p+prog(1).p;if(SB){Object.keys(S.rem).forEach(r=>{if(r.startsWith(t.id+'|'+d))S.rem[r].st='dismissed'});if(S.done[k])w(SB.from('task_completions').delete().eq('task_id',t.id).eq('occurrence_date',d));else{heart(ev);w(SB.from('task_completions').insert({task_id:t.id,occurrence_date:d}))}return}
+ if(S.done[k]){delete S.done[k];S.ledger=S.ledger.filter(l=>l.key!==k)}
+ else{S.done[k]={by:S.me,at:Date.now()};if(!S.ledger.some(l=>l.key===k))S.ledger.push({key:k,user:S.me,pts:S.pts,day:d,title:t.title});heart(ev);
+  Object.keys(S.rem).forEach(r=>{if(r.startsWith(t.id+'|'+d))S.rem[r].st='dismissed'})}
+ save();render();renderRem()}
+function heart(ev){if(!S.motion||!ev)return;const h=document.createElement('div');h.className='heart';h.textContent='♥';h.style.left=ev.clientX+'px';h.style.top=ev.clientY+'px';document.body.appendChild(h);setTimeout(()=>h.remove(),1100)}
+function taskRow(t,d,full){const dn=isDone(t,d),mine=t.assignee===S.me;
+ return `<div class="tk"><button class="chk ${dn?'on':''}" data-act="tg" data-id="${t.id}" ${mine&&d===today()?'':'disabled'} aria-label="Mark complete" title="${mine?'':'Only the assigned person can complete this'}">${dn?'✓':''}</button>
+ <div class="t ${dn?'d':''}">${esc(t.title)}<div class="mut sm">${t.time||'Anytime'}${t.rec==='daily'?' · daily':' · '+t.date}${t.creator!==t.assignee?' · from '+nm(t.creator):''}</div></div>
+ ${overdue(t)?'<span class="tag od">overdue</span>':''}${full&&t.creator===S.me?`<button class="btn g sm" data-act="del" data-id="${t.id}">Archive</button>`:''}</div>`}
+function panel(u){const p=prog(u),l=list(u,today()),up=S.tasks.filter(t=>!t.arch&&t.assignee===u&&t.rec==='once'&&t.date>today());
+ return `<div class="card p${u}"><div class="who"><div class="av v${u}">${esc(S.names[u][0]||'?')}</div><div><h2>${nm(u)}</h2><div class="mut sm">${p.d} of ${p.n} done today</div></div></div>
+ <div class="bar ${u?'v1b':''}"><i style="width:${p.p}%"></i></div>
+ <div class="stats"><div><b>${p.p}%</b><span class="mut sm">today</span></div><div><b>${streak(u)}</b><span class="mut sm">day streak (best ${best(u)})</span></div><div><b>${pts(u)}</b><span class="mut sm">points (+${ptsToday(u)} today)</span></div></div>
+ ${l.map(t=>taskRow(t,today())).join('')||'<p class="mut">Nothing scheduled today.</p>'}
+ ${up.length?`<div class="mut sm" style="margin-top:8px">Upcoming: ${up.map(t=>esc(t.title)+' ('+t.date+')').join(', ')}</div>`:''}</div>`}
+function home(){const a=prog(0),b=prog(1),n=a.n+b.n,c=n?Math.round((a.d+b.d)*100/n):0,both=a.n&&b.n&&a.p===100&&b.p===100;
+ const msgs=['Small steps, together.','Two people, one good day.','You’ve got this, both of you.'],dt=new Date();
+ return `<div class="hd"><div><h1>${dt.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})}</h1><div class="mut">${msgs[dt.getDate()%3]}</div></div><button class="btn" data-act="new">+ Add task</button></div>
+ <div class="grid">${panel(0)}${panel(1)}</div>
+ ${both?`<div class="cel">♥ ${nm(0)} and ${nm(1)} both finished today. Beautiful work. ♥</div>`:''}
+ <h2 class="sec">Together</h2><div class="card"><div class="mut sm">Combined completion today: ${c}%</div><div class="bar" style="margin:8px 0"><i style="width:${c}%"></i></div>
+ <div class="mut sm">${both?'Both daily targets are complete.':'Both daily targets are not complete yet.'}</div>
+ <h3 style="margin-top:14px;font-size:16px">Recent points</h3>${S.ledger.slice(-5).reverse().map(l=>`<div class="sm">+${l.pts} · ${nm(l.user)} · ${esc(l.title)} <span class="mut">(${l.day})</span></div>`).join('')||'<p class="mut sm">No points yet. Complete a task.</p>'}</div>`}
+function tasks(){const m=S.me,o=1-m,f=t=>!t.arch&&t.title.toLowerCase().includes(filter.toLowerCase());
+ const sec=(h,l)=>`<h2 class="sec">${h}</h2><div class="card">${l.map(t=>taskRow(t,today(),1)).join('')||'<p class="mut">None yet.</p>'}</div>`;
+ return `<div class="hd"><h1>Tasks</h1><button class="btn" data-act="new">+ Add task</button></div><input id="q" placeholder="Search tasks" value="${esc(filter)}" aria-label="Search tasks">
+ ${sec('Assigned to me ('+esc(S.names[m])+')',S.tasks.filter(t=>f(t)&&t.assignee===m))}${sec('I assigned to '+esc(S.names[o]),S.tasks.filter(t=>f(t)&&t.assignee===o&&t.creator===m))}
+ ${sec(''+esc(S.names[o])+'’s own tasks',S.tasks.filter(t=>f(t)&&t.assignee===o&&t.creator===o))}`}
+function notesOld(){const l=[...S.notes].sort((a,b)=>(b.pin?1:0)-(a.pin?1:0));
+ return `<div class="hd"><h1>Shared notes</h1></div><div class="card"><div class="row"><input id="nt" placeholder="Write a note for both of you"><button class="btn" data-act="addn" style="flex:none">Save note</button></div></div>
+ <div style="margin-top:12px">${l.map(n=>`<div class="card" style="margin-bottom:10px;display:flex;gap:10px;align-items:center"><div style="flex:1">${n.pin?'★ ':''}${esc(n.text)}</div><button class="btn g sm" data-act="pin" data-id="${n.id}">${n.pin?'Unpin':'Pin'}</button><button class="btn g sm" data-act="deln" data-id="${n.id}">Delete</button></div>`).join('')}</div>`}
+function settings(){return `<div class="hd"><h1>Settings</h1></div><div class="card"><h3>Names</h3>
+ <label>First person</label><input data-name="0" value="${esc(S.names[0])}" maxlength="30"><label>Second person</label><input data-name="1" value="${esc(S.names[1])}" maxlength="30">
+ <h3 style="margin-top:18px">Demo: viewing as</h3><p class="mut sm">Only the assigned person can complete a task; only the creator can archive it.</p>
+ <select id="me"><option value="0" ${S.me==0?'selected':''}>${esc(S.names[0])}</option><option value="1" ${S.me==1?'selected':''}>${esc(S.names[1])}</option></select>
+ <h3 style="margin-top:18px">Reminders and motion</h3>
+ <p><button class="btn g" data-act="snd">${S.sound?'Reminder sounds on (tap to mute)':'Enable reminder sounds'}</button> <button class="btn g" data-act="mo">Heart animation: ${S.motion?'on':'off'}</button></p>
+ <label>Points per completed task</label><input id="pp" type="number" min="1" max="100" value="${S.pts}">
+ <label>Timezone</label><select id="tz">${[...new Set([S.tz,'UTC','Asia/Kolkata','Europe/London','America/New_York','America/Los_Angeles'])].map(z=>`<option ${S.tz==z?'selected':''}>${z}</option>`).join('')}</select><label>Theme</label><select id="th">${['auto','light','dark'].map(x=>`<option ${S.theme==x?'selected':''}>${x}</option>`).join('')}</select>
+ <p style="margin-top:18px"><button class="btn g" data-act="reset">Reset demo data</button></p></div>`}
+function render(){if(!sess){renderLogin();return}$('.app').classList.remove('out');const m=$('#main'),act=document.activeElement&&document.activeElement.id;
+ m.innerHTML=`<div class="demo"><button class="btn g sm" style="float:right" data-act="out">Log out (${esc(S.names[S.me])})</button>${SB?'<b>Connected to Supabase.</b> '+(dbErr?'<span class=err>Database error: '+esc(dbErr)+'</span>':'Your data is saved in your database.'):'<b>Demo mode.</b> Sample data stored only in this browser. Not connected to Supabase.'}</div>`+({home,tasks,cal,notes,love,settings}[view])();
+ if(act==='q'){const q=$('#q');q.focus();q.setSelectionRange(99,99)}renderNav();
+ document.documentElement.dataset.theme=S.theme==='auto'?'':S.theme;document.body.classList.toggle('nomo',!S.motion);if(SB&&view==='settings'){const m=$('#me');if(m){m.previousElementSibling.remove();m.previousElementSibling.remove();m.remove()}}}
+function renderNav(){const n=Object.values(S.rem).filter(r=>r.st==='active').length;
+ $('#nav').innerHTML=`<div class="logo">Together <i>♥</i></div>`+[['home','Home'],['tasks','Tasks'],['cal','Calendar'],['notes','Notes'],['love','Love notes'],['settings','Settings']].map(([k,l])=>`<button class="nv ${view===k?'on':''}" data-view="${k}">${l}${k==='love'&&unread()?`<span class="dot">${unread()}</span>`:''}${k==='home'&&n?`<span class="dot">${n}</span>`:''}</button>`).join('')}
+function renderRem(){$('#rm').innerHTML=Object.entries(S.rem).filter(([k,r])=>r.st==='active'&&S.tasks.find(t=>t.id==r.tid&&t.assignee===S.me)).map(([k,r])=>{const t=S.tasks.find(x=>x.id==r.tid);return `<div class="rem"><b>Reminder</b><div>${esc(t.title)} <span class="mut sm">(${t.time})</span></div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><button class="btn sm" data-act="rdone" data-id="${t.id}">Mark done</button><button class="btn g sm" data-act="snz" data-k="${k}">Snooze 10 min</button><button class="btn g sm" data-act="dis" data-k="${k}">Dismiss</button></div></div>`}).join('');renderNav()}
+let ac;function beep(){if(!S.sound)return;try{ac=ac||new AudioContext();const o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.value=660;g.gain.setValueAtTime(.15,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.6);o.start();o.stop(ac.currentTime+.6)}catch(e){}}
+function tick(){if(!sess)return;if(!SB)load();else if(++pc%2===0)pull(true);renderNav();const d=today(),n=nowHM(),nowMs=Date.now();let fire=false;
+ Object.values(S.rem).forEach(r=>{if(r.st==='snoozed'&&nowMs>=r.until){r.st='active';fire=true}});
+ S.tasks.forEach(t=>{if(t.arch||!t.time||!el(t,d)||isDone(t,d)||t.time>n)return;const k=t.id+'|'+d+'|'+t.time;
+  if(!S.rem[k]){S.rem[k]={tid:t.id,st:'active'};fire=true}});
+ if(fire){save();if(Object.values(S.rem).some(r=>r.st==='active'&&S.tasks.find(t=>t.id==r.tid).assignee===S.me))beep();renderRem()}}
+function modal(){$('#modal').innerHTML=`<div class="modal"><div class="card"><h2>New task</h2><label>Title</label><input id="mt" maxlength="80">
+ <label>Assign to</label><select id="ma"><option value="${S.me}">Myself (${esc(S.names[S.me])})</option><option value="${1-S.me}">${esc(S.names[1-S.me])}</option></select>
+ <div class="row"><div><label>Time (optional)</label><input id="mh" type="time"></div><div><label>Repeats</label><select id="mr"><option value="once">One time</option><option value="daily">Every day</option></select></div></div>
+ <label>Date (one-time)</label><input id="md" type="date" value="${today()}"><p style="margin-top:14px;text-align:right"><button class="btn g" data-act="x">Cancel</button> <button class="btn" data-act="save">Save task</button></p></div></div>`;$('#mt').focus()}
+const vis=u=>S.love.filter(n=>n.to===u&&n.status==='sent'&&(!n.reveal||new Date(n.reveal)<=new Date()));const unread=()=>vis(S.me).filter(n=>!n.readAt).length;
+const KIND={note:'Love note',birthday:'Birthday message',anniversary:'Anniversary message'};
+function renderLogin(){$('#nav').innerHTML='';$('.app').classList.add('out');$('#main').innerHTML=`<div class='login card'><h1 style='font-size:30px'>Together <span style='color:var(--a)'>♥</span></h1><p class='mut'>A private space for two. Sign in to continue.</p><div class='demo'>Demo sign-in only. Any email-shaped address and a password of 6+ characters works here. With Supabase connected, only the two provisioned accounts can sign in, with no sign-up.</div><label for='le'>Email</label><input id='le' type='email' autocomplete='email'><label for='lp'>Password</label><div class='row'><input id='lp' type='password' autocomplete='current-password'><button class='btn g' style='flex:none' data-act='eye'>Show</button></div><label for='lw'>Demo: sign in as</label><select id='lw'><option value='0'>${esc(S.names[0])}</option><option value='1'>${esc(S.names[1])}</option></select><div class='err' id='lerr' role='alert'></div><p><button class='btn' id='lgo' data-act='login' style='width:100%'>Sign in</button></p></div>`;if(SB){document.querySelector('.login .demo').remove();$('#lw').previousElementSibling.remove();$('#lw').remove()}}
+function cal(){const [y,mo]=calM.split('-').map(Number),first=new Date(y,mo-1,1),pad=first.getDay(),dim=new Date(y,mo,0).getDate(),us=calF==='both'?[0,1]:[+calF],T=today();const sched=d=>us.flatMap(u=>S.tasks.filter(t=>t.assignee===u&&el(t,d)&&(!t.arch||isDone(t,d))));let cells='';for(let i=0;i<pad;i++)cells+='<div></div>';for(let n=1;n<=dim;n++){const d=calM+'-'+String(n).padStart(2,'0'),s=sched(d),dn=s.filter(t=>isDone(t,d)).length,ms=d<T?s.length-dn:0;cells+=`<button class='cd ${d===calSel?'sel':''} ${d===T?'td':''}' data-act='cd' data-d='${d}'><b>${n}</b>${s.length?`<div class='ok'>${dn}/${s.length} done</div>`:''}${ms?`<div class='ms'>${ms} missed</div>`:''}</button>`}const s=sched(calSel),st=t=>isDone(t,calSel)?'Completed':calSel<T?'Missed':calSel===T?'Pending':'Upcoming',pl=S.ledger.filter(l=>l.day===calSel&&us.includes(l.user));return `<div class='hd'><h1>Calendar &amp; history</h1><select id='cf' style='width:auto' aria-label='Filter by person'><option value='both' ${calF=='both'?'selected':''}>Both</option><option value='0' ${calF=='0'?'selected':''}>${esc(S.names[0])}</option><option value='1' ${calF=='1'?'selected':''}>${esc(S.names[1])}</option></select></div><div class='card'><div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:10px'><button class='btn g sm' data-act='cm' data-n='-1'>Prev</button><h3>${first.toLocaleDateString(undefined,{month:'long',year:'numeric'})}</h3><button class='btn g sm' data-act='cm' data-n='1'>Next</button></div><div class='cal'>${['S','M','T','W','T','F','S'].map(x=>`<div class='mut sm' style='text-align:center'>${x}</div>`).join('')}${cells}</div></div><h2 class='sec'>${new Date(calSel+'T12:00').toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})}</h2><div class='card'>${s.map(t=>{const r=S.done[t.id+'|'+calSel];return `<div class='tk'><div class='t'>${esc(t.title)}<div class='mut sm'>${nm(t.assignee)} · ${t.time||'Anytime'}</div></div><span class='tag ${st(t)=='Missed'?'od':''}'>${st(t)}</span>${r?`<span class='mut sm'>${r.at?fmt(r.at):'time not recorded'}</span>`:''}</div>`}).join('')||'<p class=mut>Nothing was scheduled on this day.</p>'}<p class='sm' style='margin-top:10px'>Points earned: <b>${pl.reduce((a,l)=>a+l.pts,0)}</b></p><p class='mut sm'>Read-only history. Achievements, challenges and memories for a date will show here once those features exist.</p></div>`}
+function notes(){const l=[...S.notes].sort((a,b)=>(b.pin?1:0)-(a.pin?1:0)||new Date(b[S.nsort])-new Date(a[S.nsort]));return `<div class='hd'><h1>Shared notes</h1><select id='ns' style='width:auto' aria-label='Sort notes'><option value='created' ${S.nsort=='created'?'selected':''}>Newest created</option><option value='updated' ${S.nsort=='updated'?'selected':''}>Recently updated</option></select></div><div class='card'><input id='ntt' placeholder='Title' maxlength='80'><textarea id='nt' rows='3' placeholder='Write a note for both of you' style='margin-top:8px'></textarea><p style='margin:10px 0 0'><button class='btn' data-act='addn'>Save note</button></p></div><div style='margin-top:12px'>${l.map(n=>`<div class='card' style='margin-bottom:10px'><div style='display:flex;gap:8px;align-items:flex-start'><div style='flex:1'><h3 style='font-size:17px'>${n.pin?'★ ':''}${esc(n.title||'Untitled')}</h3><div style='white-space:pre-wrap'>${esc(n.text)}</div><div class='mut sm' style='margin-top:6px'>By ${nm(n.by)} · Created ${fmt(n.created)}${n.updated!==n.created?' · Updated '+fmt(n.updated):''}</div></div><div style='display:flex;gap:6px;flex-wrap:wrap'><button class='btn g sm' data-act='edn' data-id='${n.id}'>Edit</button><button class='btn g sm' data-act='pin' data-id='${n.id}'>${n.pin?'Unpin':'Pin'}</button><button class='btn g sm' data-act='deln' data-id='${n.id}'>Delete</button></div></div></div>`).join('')}</div>`}
+function noteModal(id){const n=S.notes.find(x=>x.id==id);$('#modal').innerHTML=`<div class='modal'><div class='card'><h2>Edit note</h2><label>Title</label><input id='et' maxlength='80'><label>Content</label><textarea id='ec' rows='5'></textarea><p style='margin-top:14px;text-align:right'><button class='btn g' data-act='x'>Cancel</button> <button class='btn' data-act='sen' data-id='${n.id}'>Save changes</button></p></div></div>`;$('#et').value=n.title;$('#ec').value=n.text}
+function love(){const m=S.me,o=1-m,rc=vis(m).sort((a,b)=>new Date(b.sentAt)-new Date(a.sentAt)),mine=S.love.filter(n=>n.from===m),av=n=>fmt(n.reveal&&new Date(n.reveal)>new Date(n.sentAt)?n.reveal:n.sentAt);return `<div class='hd'><h1>Love notes &amp; surprises</h1></div><div class='card'><h3>Write to ${nm(o)}</h3><div class='row'><div><label>Type</label><select id='lk'>${Object.entries(KIND).map(([k,v])=>`<option value='${k}'>${v}</option>`).join('')}</select></div><div><label>Reveal at (optional)</label><input id='lr' type='datetime-local'></div></div><label>Title</label><input id='lt' maxlength='80'><label>Message</label><textarea id='lm' rows='4'></textarea><p style='margin-top:10px'><button class='btn g' data-act='lsd'>Save draft</button> <button class='btn' data-act='lss'>Send or schedule</button></p><div class='err' id='lerr2'></div></div><h2 class='sec'>Received</h2>${rc.map(n=>`<div class='card' style='margin-bottom:10px;border-left:5px solid var(--a)'><div class='mut sm'>${KIND[n.kind]} from ${nm(n.from)} ${n.readAt?'':'· <b>new</b>'}</div><h3>${esc(n.title||'For you')}</h3><div style='white-space:pre-wrap'>${esc(n.text)}</div><div class='mut sm' style='margin-top:6px'>Written ${fmt(n.created)} · Available ${av(n)}</div>${n.readAt?'':`<button class='btn g sm' style='margin-top:8px' data-act='lrd' data-id='${n.id}'>Mark as read</button>`}</div>`).join('')||'<p class=mut>Nothing revealed yet.</p>'}<h2 class='sec'>Written by me</h2>${mine.map(n=>{const rv=n.reveal&&new Date(n.reveal)>new Date(),stt=n.status==='draft'?'Draft':rv?'Scheduled for '+fmt(n.reveal):'Delivered '+fmt(n.sentAt);return `<div class='card' style='margin-bottom:10px'><div class='mut sm'>${KIND[n.kind]} to ${nm(n.to)} · ${stt}</div><h3>${esc(n.title||'Untitled')}</h3><div style='white-space:pre-wrap'>${esc(n.text)}</div><div style='margin-top:8px;display:flex;gap:6px'>${n.status==='draft'?`<button class='btn sm' data-act='lsn' data-id='${n.id}'>Send</button>`:''}${n.status==='draft'||rv?`<button class='btn g sm' data-act='ldl' data-id='${n.id}'>Delete</button>`:''}</div></div>`}).join('')||'<p class=mut>No notes written yet.</p>'}`}
+function composeLove(send){const tx=$('#lm').value.trim(),er=$('#lerr2');if(!tx){er.textContent='Write a message first.';return}const r=$('#lr').value,now=new Date().toISOString();if(SB){w(SB.from('love_notes').insert({recipient_id:ids[1-S.me],kind:$('#lk').value,title:$('#lt').value.trim(),body:tx,reveal_at:r?new Date(r).toISOString():null,status:send?'sent':'draft',sent_at:send?now:null}));return}S.love.push({id:S.nl++,from:S.me,to:1-S.me,kind:$('#lk').value,title:$('#lt').value.trim(),text:tx,reveal:r?new Date(r).toISOString():'',status:send?'sent':'draft',created:now,sentAt:send?now:'',readAt:''});save();render()}
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&!sess){const g=$('#lgo');if(g&&!g.disabled)g.click()}});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-act],[data-view]');if(!b)return;
+ if(b.dataset.view){view=b.dataset.view;render();return}
+ const a=b.dataset.act,id=b.dataset.id;
+ if(a==='tg')toggle(id,e);else if(a==='new')modal();else if(a==='x')$('#modal').innerHTML='';
+ else if(a==='save'){const ti=$('#mt').value.trim();if(!ti){$('#mt').focus();return}const r=$('#mr').value;
+  if(SB){$('#modal').innerHTML='';w(SB.from('tasks').insert({title:ti,assignee_id:ids[+$('#ma').value],due_time:$('#mh').value||null,recurrence:r,start_date:today(),one_time_date:r==='once'?($('#md').value||null):null}));return}S.tasks.push({id:S.nid++,title:ti,creator:S.me,assignee:+$('#ma').value,time:$('#mh').value,rec:r,start:today(),date:r==='once'?$('#md').value:''});$('#modal').innerHTML='';save();render()}
+ else if(a==='del'){if(SB){w(SB.from('tasks').update({archived_at:new Date().toISOString()}).eq('id',id));return}S.tasks.find(t=>t.id==id).arch=true;save();render()}
+ else if(a==='addn'){const v=$('#nt').value.trim(),now=new Date().toISOString();if(v&&SB){w(SB.from('notes').insert({title:$('#ntt').value.trim(),body:v}));return}if(v){S.notes.push({id:S.nn++,title:$('#ntt').value.trim(),text:v,by:S.me,created:now,updated:now});save();render()}}
+ else if(a==='edn')noteModal(id);
+ else if(a==='sen'){const n=S.notes.find(x=>x.id==id);if(SB){$('#modal').innerHTML='';w(SB.from('notes').update({title:$('#et').value.trim(),body:$('#ec').value.trim()||n.text}).eq('id',id));return}n.title=$('#et').value.trim();n.text=$('#ec').value.trim()||n.text;n.updated=new Date().toISOString();$('#modal').innerHTML='';save();render()}
+ else if(a==='eye'){const p=$('#lp');p.type=p.type==='password'?'text':'password';b.textContent=p.type==='password'?'Show':'Hide'}
+ else if(a==='login'){const em=$('#le').value.trim(),pw=$('#lp').value,er=$('#lerr');if(!em.includes('@')||em.includes(' ')||!em.split('@')[1].includes('.')){er.textContent='Enter a valid email address.';return}if(pw.length<6){er.textContent='Password must be at least 6 characters.';return}er.textContent='';b.disabled=true;b.textContent='Signing in…';if(SB){SB.auth.signInWithPassword({email:em,password:pw}).then(({data,error})=>{if(error||!data.session){er.textContent='Sign-in failed. Check your email and password.';b.disabled=false;b.textContent='Sign in';return}startReal(data.session)});return}const who=+$('#lw').value;setTimeout(()=>{sess='1';try{sessionStorage.setItem('together-sess','1')}catch(e){}S.me=who;save();view='home';render();renderRem()},700)}
+ else if(a==='out'){if(SB)SB.auth.signOut();sess=null;try{sessionStorage.removeItem('together-sess')}catch(e){}$('#rm').innerHTML='';render()}
+ else if(a==='cd'){calSel=b.dataset.d;render()}
+ else if(a==='cm'){calM=ymd(new Date(+calM.slice(0,4),+calM.slice(5)-1+ +b.dataset.n,1)).slice(0,7);render()}
+ else if(a==='lsd')composeLove(false);else if(a==='lss')composeLove(true)
+ else if(a==='lsn'){if(SB){w(SB.from('love_notes').update({status:'sent',sent_at:new Date().toISOString()}).eq('id',id));return}const n=S.love.find(x=>x.id==id);n.status='sent';n.sentAt=new Date().toISOString();save();render()}
+ else if(a==='ldl'){if(SB){w(SB.from('love_notes').delete().eq('id',id));return}S.love=S.love.filter(x=>x.id!=id);save();render()}
+ else if(a==='lrd'){if(SB){w(SB.rpc('mark_love_note_read',{p_id:id}));return}const n=S.love.find(x=>x.id==id);if(n.to===S.me){n.readAt=new Date().toISOString();save();render()}}
+ else if(a==='pin'){const n=S.notes.find(x=>x.id==id);if(SB){w(SB.from('notes').update({pinned:!n.pin}).eq('id',id));return}n.pin=!n.pin;save();render()}
+ else if(a==='deln'){if(SB){w(SB.from('notes').delete().eq('id',id));return}S.notes=S.notes.filter(x=>x.id!=id);save();render()}
+ else if(a==='snd'){S.sound=!S.sound;if(S.sound){try{ac=ac||new AudioContext();ac.resume()}catch(e){}beep()}save();render()}
+ else if(a==='mo'){S.motion=!S.motion;save();render()}
+ else if(a==='reset'){if(SB)return;S=seed();save();render();renderRem()}
+ else if(a==='rdone'){const t=S.tasks.find(x=>x.id==id);if(t&&!isDone(t,today()))toggle(id,e)}
+ else if(a==='snz'){S.rem[b.dataset.k].st='snoozed';S.rem[b.dataset.k].until=Date.now()+600000;save();renderRem()}
+ else if(a==='dis'){S.rem[b.dataset.k].st='dismissed';save();renderRem()}});
+document.addEventListener('input',e=>{const t=e.target;
+ if(t.dataset.name!==undefined){S.names[t.dataset.name]=t.value||('Person '+(+t.dataset.name+1));save();if(SB&&+t.dataset.name===S.me){clearTimeout(nt);nt=setTimeout(()=>SB.from('profiles').update({display_name:t.value.trim()||'Person'}).eq('id',UID).then(r=>{if(r.error)dbErr=r.error.message}),500)}document.querySelectorAll('[data-n="'+t.dataset.name+'"]').forEach(s=>s.textContent=S.names[t.dataset.name])}
+ else if(t.id==='q'){filter=t.value;render()}
+ else if(t.id==='pp'){S.pts=Math.max(1,+t.value||10);save()}});
+document.addEventListener('change',e=>{const t=e.target;if(t.id==='me'&&!SB){S.me=+t.value;save();render();renderRem()}if(t.id==='th'){S.theme=t.value;save();render()}if(t.id==='tz'){S.tz=t.value;save();render()}if(t.id==='cf'){calF=t.value;render()}if(t.id==='ns'){S.nsort=t.value;save();render()}});
+async function w(p){const r=await p;if(r.error){dbErr=r.error.message;render();return false}dbErr='';await pull();return true}
+async function pull(quiet){try{const q=n=>SB.from(n).select('*'),R=await Promise.all([q('tasks'),q('task_completions'),q('notes'),q('love_notes'),q('profiles')]),er=R.find(r=>r.error);if(er)throw er.error;const [tk,cp,nt2,lv,pr]=R,ix=u=>ids.indexOf(u);dbErr='';
+S.names=[0,1].map(i=>(pr.data.find(x=>x.id===ids[i])||{}).display_name||'Person '+(i+1));
+S.tasks=tk.data.sort((a,b)=>a.created_at<b.created_at?-1:1).map(t=>({id:t.id,title:t.title,creator:ix(t.creator_id),assignee:ix(t.assignee_id),time:t.due_time?t.due_time.slice(0,5):'',rec:t.recurrence==='once'?'once':'daily',start:t.start_date,date:t.one_time_date||'',arch:!!t.archived_at}));
+const tt=Object.fromEntries(S.tasks.map(t=>[t.id,t]));S.done={};S.ledger=[];cp.data.forEach(c=>{const k=c.task_id+'|'+c.occurrence_date;S.done[k]={by:ix(c.user_id),at:new Date(c.completed_at).getTime()};S.ledger.push({key:k,user:ix(c.user_id),pts:10,day:c.occurrence_date,title:(tt[c.task_id]||{}).title||''})});
+S.notes=nt2.data.map(n=>({id:n.id,title:n.title,text:n.body,by:ix(n.author_id),created:n.created_at,updated:n.updated_at,pin:n.pinned}));
+S.love=lv.data.map(n=>({id:n.id,from:ix(n.author_id),to:ix(n.recipient_id),kind:n.kind,title:n.title,text:n.body,reveal:n.reveal_at||'',status:n.status,created:n.created_at,sentAt:n.sent_at||'',readAt:n.read_at||''}))}catch(e){dbErr=e.message||String(e)}
+const a=document.activeElement;if(!(quiet&&a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName)))render()}
+async function startReal(se){const i=SB_CFG.people.indexOf((se.user.email||'').toLowerCase());if(i<0){SB.auth.signOut();sess=null;render();$('#lerr').textContent='This account is not part of this workspace.';return}
+UID=se.user.id;sess='1';S.me=i;view='home';S.tasks=[];S.done={};S.ledger=[];S.notes=[];S.love=[];try{Object.assign(S,JSON.parse(localStorage.getItem(K+'-p'))||{})}catch(e){}S.rem=S.rem||{};
+const m=await SB.from('couple_members').select('user_id');if(m.error||!m.data||m.data.length<2){dbErr=m.error?m.error.message:'The two accounts are not linked as a couple yet. Run the provisioning SQL.';ids=[];render();renderRem();return}
+ids=[];ids[i]=UID;ids[1-i]=m.data.find(r=>r.user_id!==UID).user_id;await pull();renderRem()}
+load();if(SB){sess=null;render();SB.auth.getSession().then(({data})=>{if(data.session)startReal(data.session)})}else render();renderRem();tick();setInterval(tick,15000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)tick()});
+</script></body></html>
